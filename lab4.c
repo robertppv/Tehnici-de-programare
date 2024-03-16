@@ -24,7 +24,7 @@ typedef struct
     int unsigned dim : 10;
     unsigned int extensie : 2;
     unsigned int tip : 1;
-    char nume[15];
+    char *nume;
 } FIS;
 FIS *fisiere = NULL;
 int nr_fisiere = 0;
@@ -66,31 +66,55 @@ void adaugareFis(FIS aux)
     }
     fisiere[nr_fisiere++] = aux;
 }
-void citireFisier()
+void citireFisier(FILE *fis)
 {
     FIS fisaux;
     int aux;
+    char *buf=NULL;
     printf("Nume:");
-    strcpy(fisaux.nume, readword());
+    //strcpy(fisiere[nr_fisiere].nume,readword());
+    //fprintf(fis,"%s\n",buf);
     printf("Dim:");
     scanf("%d", &aux);
+    fprintf(fis,"%d\n",aux);
     fisaux.dim = aux;
     printf("Extensie .txt - 0, .doc - 1, .xls  2:");
     scanf("%d", &aux);
+    fprintf(fis,"%d\n",aux);
     fisaux.extensie = aux;
     printf("Tip normal  0, read-only  1:");
     scanf("%d", &aux);
+    fprintf(fis,"%d\n",aux);
     fisaux.tip = aux;
     adaugareFis(fisaux);
+    fprintf(fis,"\n");
+}
+void freefis()
+{
+    for (int i = 0; i < nr_fisiere; i++)
+    {
+        free(fisiere[i].nume);
+    }
+    free(fisiere);
 }
 void pb1()
 {
-
-    citireFisier();
+    FILE *fis;
+    if ((fis = fopen("memorie.txt,", "w")) == NULL)
+    {
+        perror("nasol file err");
+        exit(EXIT_FAILURE);
+    }
+    citireFisier(fis);
+    if (fclose(fis) != 0)
+    {
+        perror("nasol file err");
+        exit(EXIT_FAILURE);
+    }
 }
 int main(void)
 {
     pb1();
-    printf("%s",fisiere[0].nume);
+
     return 0;
 }

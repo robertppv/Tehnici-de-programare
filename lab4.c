@@ -70,24 +70,25 @@ void citireFisier(FILE *fis)
 {
     FIS fisaux;
     int aux;
-    char *buf=NULL;
+    char *p = NULL;
     printf("Nume:");
-    //strcpy(fisiere[nr_fisiere].nume,readword());
-    //fprintf(fis,"%s\n",buf);
+    p = readword();
+    fisaux.nume = p;
+    fprintf(fis, "%s\n", fisaux.nume);
     printf("Dim:");
     scanf("%d", &aux);
-    fprintf(fis,"%d\n",aux);
+    fprintf(fis, "%d\n", aux);
     fisaux.dim = aux;
     printf("Extensie .txt - 0, .doc - 1, .xls  2:");
     scanf("%d", &aux);
-    fprintf(fis,"%d\n",aux);
+    fprintf(fis, "%d\n", aux);
     fisaux.extensie = aux;
     printf("Tip normal  0, read-only  1:");
     scanf("%d", &aux);
-    fprintf(fis,"%d\n",aux);
+    fprintf(fis, "%d\n", aux);
     fisaux.tip = aux;
     adaugareFis(fisaux);
-    fprintf(fis,"\n");
+    fprintf(fis, "\n");
 }
 void freefis()
 {
@@ -106,12 +107,45 @@ void pb1()
         exit(EXIT_FAILURE);
     }
     citireFisier(fis);
+    getchar();
+    citireFisier(fis);
+    freefis();
     if (fclose(fis) != 0)
     {
         perror("nasol file err");
         exit(EXIT_FAILURE);
     }
 }
+
+typedef struct
+{
+    unsigned int nPicioare : 9;
+    unsigned int varstaMax : 7;
+    unsigned int periculos : 1;
+    unsigned int : 10;
+    char abrev[8];
+    float greutate;
+} ANIMAL;
+
+void pb4()
+{
+    ANIMAL animal1;
+    scanf("%d", animal1.nPicioare);
+    scanf("%f", animal1.greutate);
+    scanf("%d", animal1.periculos);
+    scanf("%s", animal1.abrev);
+    scanf("%d", animal1.varstaMax);
+}
+
+
+
+typedef struct
+{
+    unsigned int periculos:2;
+    unsigned int reteta:1;
+    unsigned int varstamin:5;
+}MEDICAMENT;
+
 int main(void)
 {
     pb1();

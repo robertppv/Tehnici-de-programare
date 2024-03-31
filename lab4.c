@@ -137,18 +137,39 @@ void pb4()
     scanf("%d", animal1.varstaMax);
 }
 
-
-
 typedef struct
 {
-    unsigned int periculos:2;
-    unsigned int reteta:1;
-    unsigned int varstamin:5;
-}MEDICAMENT;
+    unsigned int periculos : 2;
+    unsigned int reteta : 1;
+    unsigned int varstamin : 5;
+} MEDICAMENT;
 
+void pb5()
+{
+    MEDICAMENT xanax;
+    unsigned int aux;
+    printf("gradul de periculozitate: scazuta-0, medie-1, mare-2:");
+    scanf("%d", &aux);
+    xanax.periculos = aux;
+    printf("se elibereaza doar pe baza de reteta: da-1, nu-0:");
+    scanf("%d", &aux);
+    xanax.reteta = aux;
+    printf("varsta minima de administrare: 1...18 ani inclusiv:");
+    scanf("%d", &aux);
+    xanax.varstamin = aux;
+
+    printf("%d %d %d",xanax.periculos,xanax.reteta,xanax.varstamin);
+}
+
+
+void pb6()
+{
+
+    
+}
 int main(void)
 {
-    pb1();
+   
 
     return 0;
 }

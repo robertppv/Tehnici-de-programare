@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdarg.h>
+#include <string.h>
 
 void err(const int cond, const char *fmt, ...)
 {
@@ -117,6 +118,66 @@ int crescator(int n, char tip, ...)
     return ok;
 }
 
+char *concat(int n, ...)
+{
+    va_list va;
+    char *sir = NULL;
+    char *aux = NULL;
+    va_start(va, n);
+    if ((sir = malloc(sizeof(char))) == NULL)
+    {
+        perror("mem err");
+        exit(EXIT_FAILURE);
+    }
+    strcpy(sir, "");
+    for (int i = 0; i < n; i++)
+    {
+        aux = va_arg(va, char *);
+
+        if ((sir = realloc(sir, (strlen(sir) + strlen(aux) + 2) * sizeof(char))) == NULL)
+        {
+            perror("mem err");
+            exit(EXIT_FAILURE);
+        }
+        strcat(sir, aux);
+        strcat(sir, " ");
+    }
+    sir[strlen(sir)] = 0;
+    va_end(va);
+    return sir;
+}
+
+int sortare(int n, ...)
+{
+    va_list va;
+    va_start(va, n);
+    int **v = NULL;
+    int aux;
+    if ((v = malloc(n * sizeof(int *))) == NULL)
+    {
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+
+        v[i] = va_arg(va, int *);
+    }
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (*v[i] > *v[j])
+            {
+                aux = *v[i];
+                *v[i] = *v[j];
+                *v[j] = aux;
+            }
+        }
+    }
+    va_end(va);
+}
 int main()
 {
     return 0;

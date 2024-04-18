@@ -134,6 +134,53 @@ int pb1(elem *list1, elem *list2)
     }
     return 1;
 }
+
+int cautare(elem *list, int n)
+{
+    for (elem *p = list; p != NULL; p = p->urm)
+    {
+        if (p->info == n)
+            return 1;
+    }
+    return 0;
+}
+
+elem *pb3(elem *list1, elem *list2)
+{
+    elem *newlist = NULL, *p = NULL;
+    for (p = list1; p != NULL; p = p->urm)
+    {
+        if (cautare(newlist, p->info) == 0)
+        {
+            newlist = adaugaSfarsit(newlist, p->info);
+        }
+    }
+    for (p = list2; p != NULL; p = p->urm)
+    {
+        if (cautare(newlist, p->info) == 0)
+        {
+            newlist = adaugaSfarsit(newlist, p->info);
+        }
+    }
+    return newlist;
+}
+
+int egal(elem *list1, elem *list2)
+{
+    elem *p = NULL;
+
+    for (p = list1; p != NULL; p = p->urm)
+    {
+        if (cautare(list2, p->info) == 0)
+            return 0;
+    }
+    for (p = list2; p != NULL; p = p->urm)
+    {
+        if (cautare(list1, p->info) == 0)
+            return 0;
+    }
+    return 1;
+}
 int main(void)
 {
     elem *lista = NULL;
@@ -141,8 +188,11 @@ int main(void)
     lista = adaugaInceput(lista, 7);
     lista = adaugaInceput(lista, 8);
     lista = adaugaInceput(lista, 9);
-    lista = adaugaSfarsit(lista, 12);
-    lista2 = adaugaSfarsit(lista2, 15);
-    
-
+    lista = adaugaInceput(lista, 9);
+    lista2 = adaugaInceput(lista2, 7);
+    lista2 = adaugaInceput(lista2, 7);
+    lista2 = adaugaInceput(lista2, 8);
+    lista2 = adaugaInceput(lista2, 9);
+    lista2 = adaugaInceput(lista2, 9);
+    printf("%d", egal(lista, lista2));
 }

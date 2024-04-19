@@ -145,6 +145,23 @@ int cautare(elem *list, int n)
     return 0;
 }
 
+elem *pb2(elem *lista)
+{
+    if (lista == NULL)
+    {
+        return lista;
+    }
+    elem *prev, *q, *aux;
+    for (prev = lista, q = lista->urm; q->urm != NULL; prev = q, q = aux)
+    {
+        aux = q->urm;
+        q->urm = prev;
+    }
+    q->urm = prev;
+    lista->urm = NULL;
+    lista = q;
+    return lista;
+}
 elem *pb3(elem *list1, elem *list2)
 {
     elem *newlist = NULL, *p = NULL;
@@ -165,7 +182,7 @@ elem *pb3(elem *list1, elem *list2)
     return newlist;
 }
 
-int egal(elem *list1, elem *list2)
+int pb5(elem *list1, elem *list2)
 {
     elem *p = NULL;
 
@@ -181,18 +198,62 @@ int egal(elem *list1, elem *list2)
     }
     return 1;
 }
+
+elem *pb6(elem *list, int n)
+{
+    elem *p = NULL, *prev = NULL;
+    if (list == NULL)
+    {
+        return nod_nou(n, NULL);
+    }
+
+    if (n < list->info)
+    {
+        list = adaugaInceput(list, n);
+        return list;
+    }
+
+    for (p = list; p != NULL; p = p->urm)
+    {
+        if (p->urm == NULL)
+        {
+            list = adaugaSfarsit(list, n);
+            return list;
+        }
+        else
+        {
+
+            if (n < p->urm->info)
+            {
+                elem *nu = nod_nou(n, p->urm);
+                p->urm = nu;
+                return list;
+            }
+        }
+    }
+}
+
+elem *pb61(elem *list)
+{
+    elem *p = NULL, *newlist = NULL;
+    for (p = list; p != NULL; p = p->urm)
+    {
+        newlist = pb6(newlist, p->info);
+    }
+    return newlist;
+}
+
 int main(void)
 {
     elem *lista = NULL;
     elem *lista2 = NULL;
-    lista = adaugaInceput(lista, 7);
-    lista = adaugaInceput(lista, 8);
-    lista = adaugaInceput(lista, 9);
-    lista = adaugaInceput(lista, 9);
+    lista = adaugaInceput(lista, 14353);
+    lista = adaugaInceput(lista, 5);
+    lista = adaugaInceput(lista, 5454);
+
     lista2 = adaugaInceput(lista2, 7);
     lista2 = adaugaInceput(lista2, 7);
     lista2 = adaugaInceput(lista2, 8);
     lista2 = adaugaInceput(lista2, 9);
     lista2 = adaugaInceput(lista2, 9);
-    printf("%d", egal(lista, lista2));
 }

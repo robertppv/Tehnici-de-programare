@@ -245,15 +245,5 @@ elem *pb61(elem *list)
 
 int main(void)
 {
-    elem *lista = NULL;
-    elem *lista2 = NULL;
-    lista = adaugaInceput(lista, 14353);
-    lista = adaugaInceput(lista, 5);
-    lista = adaugaInceput(lista, 5454);
-
-    lista2 = adaugaInceput(lista2, 7);
-    lista2 = adaugaInceput(lista2, 7);
-    lista2 = adaugaInceput(lista2, 8);
-    lista2 = adaugaInceput(lista2, 9);
-    lista2 = adaugaInceput(lista2, 9);
+   
 }

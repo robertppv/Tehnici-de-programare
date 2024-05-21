@@ -178,6 +178,7 @@ int sortare(int n, ...)
     }
     va_end(va);
 }
+
 int main()
 {
     return 0;

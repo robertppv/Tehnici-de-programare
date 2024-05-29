@@ -22,6 +22,39 @@ elem *permutari(elem *lista, int perm)
     return lista;
 }
 
+elem *nodnou(int n, elem *urm)
+{
+    elem *p = NULL;
+    if ((p = malloc(sizeof(elem))) == NULL)
+        perror("err");
+    p->n = n;
+    p->urm = urm;
+    return p;
+}
+elem *adsf(elem *lista, int n)
+{
+    elem *nou = nodnou(n, NULL);
+    elem *p = NULL;
+    if (lista == NULL)
+        lista = nou;
+    else
+    {
+        for (p = lista; p->urm != NULL; p = p->urm)
+            ;
+        p->urm = nou;
+    }
+    return lista;
+}
+
+void afis(elem *lista)
+{
+    for (elem *p = lista; p != NULL; p = p->urm)
+    {
+        printf("%d ", p->n);
+    }
+    printf("\n");
+}
+
 void pb1()
 {
     FILE *filein, *fileout;
@@ -51,7 +84,7 @@ void pb1()
 
     for (p = lista; p != NULL; p = p->urm)
     {
-        fprintf(fileout, "%d ", p->info);
+        fprintf(fileout, "%d ", p->n);
     }
 
     if (fclose(filein) != 0)
@@ -66,15 +99,49 @@ void pb1()
         exit(EXIT_FAILURE);
     }
 }
-
-elem *nodnou(int n)
-
 void pb2()
 {
-    elem par=NULL;
-    elem impar=NULL;
+    FILE *filein;
+    elem *par = NULL, *impar = NULL, *p = NULL;
+    int n;
+    if ((filein = fopen("date.in", "r")) == NULL)
+    {
+        perror("mem err");
+        exit(EXIT_FAILURE);
+    }
 
+    while (fscanf(filein, "%d", &n) == 1)
+    {
+        if (n % 2 == 0)
+            par = adsf(par, n);
+        else
+            impar = adsf(impar, n);
+    }
+
+    for (p = par; p->urm != NULL; p = p->urm)
+        ;
+    p->urm = impar;
+
+    afis(par);
+    if (fclose(filein) != 0)
+    {
+        perror("mem err");
+        exit(EXIT_FAILURE);
+    }
+}
+elem *insp(elem *lista)
+{
+    elem *p = NULL;
+    elem *nou = NULL;
+    for (p = lista; p != NULL; p->urm)
+    {
+        if (p->n % 2 == 0)
+        {
+            
+        }
+    }
 }
 int main(void)
 {
+    pb2();
 }
